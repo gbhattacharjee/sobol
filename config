@@ -1,0 +1,19 @@
+Created by Gitanjali Bhattacharjee
+10 November 2020
+
+This code was written and has only been tested in Python 2.7.13. The following package versions are required:
+
+- networkx 1.8.x
+- pp 1.6.5
+
+Other packages you may be required to install (version may vary) are:
+
+- scipy 1.1.0
+- numpy 1.16.6
+- matplotlib 2.2.5
+- plotly 4.0.0
+- util*
+- bd_test*
+- ita_cost*
+
+* indicates custom packages included in this repository.

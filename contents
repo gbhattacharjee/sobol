@@ -1,0 +1,74 @@
+Created by Gitanjali Bhattacharjee
+10 November 2020
+
+
+Contents of gbhattacharjee/sobol repository.
+If you have questions, please email me at gxbhattacharjee@gmail.com.
+
+Note that estimating total-order Sobol' indices and creating various plots based on those estimates or the existing retrofit results is doable on a local machine. 
+
+Running new samples (or re-running existing samples) using run_sobol.py will likely take significantly longer. The results in this repository were obtained using a high-performance cluster, not a local machine. 
+
+To profile performance, either
+
+(1) run a batch containing a single sample of the fragility function parameter vector F using run_sobol.py or
+(2) Get the runtime of a single function evaluation. Run mahmodel_road_only.py on a single damage map (i.e., run a single traffic assignment). It will take (N x B x S x D)
+
+
+To get an estimate of bridges' total-order Sobol' indices, simply run main() in process_results_sf.py. 
+
+
+*** INPUT ***
+- input -- contains a variety of files necessary to run traffic simulations of the damaged road network, including
+- input/sf_fullr_dict.pkl -- subset of master_bridge_dict_GB_omegas.pkl containing 71 bridges of interest in San Francisco; nested dictionary with first key being bridge (original) ID and nested keys being
+
+- input/sf_fullr_bridge_ids.pkl -- list of bridge (original) IDs, used to ensure consistency in the order in which we iterate over bridges in the case study
+- input/master_bridge_dict_GB_omegas.pkl -- nested dictionary with first key being bridge (original)ID and nested keys being the same as in sf_fullr_dict.pkl; contains all 1743 bridges owned by Caltrans in the SF Bay Area
+- input/graphMTC_GB.gpickle -- graph of the road network, including bridges
+- input/sample_ground_motion_intensity_maps_road_only_filtered.txt -- 1992 ground-motion intensity maps (Sa at T = 1s) for the 1743 bridges owned by Caltrans in the SF Bay Area. Each row is a map. The columns refer to:  first column is simulation number, second is fault id, third is magnitude, fourth is the annual occurrence rate (SUPER USEFUL), fifth is Sa (NOT logSa) in site new ID 1, sixth is Sa in site new ID 2, ...site ID n. This is a full hazard-consistent set of events.
+
+*** SOBOL_INPUT ***
+- sobol_input -- contains files necessary to implement the Sobol' index method, including:
+- sobol_input/F_samples_sf_fullr_*.pkl -- batches of samples of the fragility function parameter vector, sampled assuming each bridge has equal probabilities of being retrofitted and of being unretrofitted
+- sobol_input/F_prime_samples_sf_fullr_*.pkl -- batches of samples of the fragility function parameter vector, sampled assuming each bridge has equal probabilities of being retrofitted and of being unretrofitted; same dimensions as associated F_samples_sf_fullr_*.pkl file, with which it is interleaved to create hybrid points
+- sobol_input/sf_fullr_training_map_indices.pkl -- indices (row numbers in sample_ground_motion_intensity_maps_road_only_filtered.txt) of the 30 ground-motion maps that make up the training set
+- sobol_input/sf_fullr_training_map_weights.pkl -- weights (annual rates of occurrence) of the ground-motion maps in the training set
+- sobol_input/sf_fullr_testing_map_indices.pkl -- indices (row numbers in sample_ground_motion_intensity_maps_road_only_filtered.txt) of the 45 ground-motion maps that make up the testing set
+- sobol_input/sf_fullr_testing_map_weights.pkl -- weights (annual rates of occurrence) of the ground-motion maps in the testing set
+- sobol_input/U_good_sf_fullr.pkl -- a set of common random numbers used to sample damage maps in compute_bridge_sobol_sf_full.py
+
+*** SOBOL_OUTPUT ***
+- sobol_output/run_sf_fullr_total_all -- contains the results of evaluations of points and hybrid points (F and F'). The results are batched; each batch includes 5 samples.
+
+
+mahmodel_road_only.py -- function main() performs traffic simulation for a particular sample of the fragility function parameter vector; for each sample, it simulates D damage maps for each of S scenarios in the specified set of ground-motions and returns the expected cost of the road network performance, among other outputs. This is a modified version of the file of the same name created by Mahalia Miller and available at https://github.com/bakerjw/bayAreaTransportation. 
+
+compute_bridge_sobol_sf_full.py -- contains the function run_sobol_computation(), which processes batches of samples of the fragility function parameter vector and stores the expected costs (as well as other outputs of interest) in sobol_output.
+
+process_retrofit_results.py -- 
+
+run_sobol.py -- wrapper function in which we specify the settings of a Sobol' index computation, run a limited number of samples, and time itul
+
+retrofit_testing.py -- 
+
+run_retrofit_testing_sf_fullr.py -- 
+
+make_retrofit_samples.py -- creates fragility function parameter vectors that correspond to user-specified retrofits. Use to make F_samples_*.pkl and F_prime_samples_*.pkl.
+
+network_effects.py -- computes 
+
+make_inputs.py -- creates samples of fragility function parameter vector in which each bridge has equal probabilities of being retrofitted and being unretrofitted.
+
+ita_cost.py -- iterative traffic assignment module described in more detail in Mahalia Miller's thesis. Modified version of ita.py in repository at https://github.com/bakerjw/bayAreaTransportation that implements the changes specified in XXXXXXXXX.
+
+bd_test.py -- contains a function to build the origin-destination matrix required to run traffic simulations.
+
+util.py -- various helper functions used in mahmodel_road_only.py; written by Mahalia Miller and also available at https://github.com/bakerjw/bayAreaTransportation.
+
+make_convergence_plots_total.py -- check the convergence of bridges' estimated total-order Sobol' indices as sample size changes.
+
+make_ranking_convergence_plots.py -- check the convergence of bridge rankings based on estimated Sobol' indices as sample size changes.
+
+
+
+
