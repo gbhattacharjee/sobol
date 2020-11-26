@@ -1,16 +1,4 @@
 # Author: Gitanjali Bhattacharjee
-# LATEST UPDATE: 30 January 2020 -- update to work with fixed traffic model and new cost model.
-# LATEST UPDATE: copied from compute_bridge_sobol_multi_cost_alt_test.py -- major update is that now, samples are processed
-# in parallel using pp package and damage maps and costs are computed in series -- MUCH FASTER THIS WAY!
-# LATEST UPDATE: 24 August 2019 -- changed how we generate F and pass it to mahmodel (now pass bridge indices list as well,
-# to preserve order and make sure nothing gets screwed up)
-# LATEST UPDATE: 3 August 2019 -- changed how we generate U from producing an array of size (B,S) to one of size (B,SxD);
-# changed reference to mahmodel_road_only_napa_3 (from v2)
-# LATEST UPDATE: 30 July 2019 -- added 'first_order' as an optional parameter to compute first-order Sobol indices rather
-# than only total-order Sobol indices -- changed interleave() method
-# LATEST UPDATE: 7 July 2019 -- added 'map_indices' as an input to run_traffic_model_set to allow for custom subset of maps
-# Purpose: This file is used in conjunction with mahmodel_road_only_napa.py for my ME 470 project. It contains code to
-# explore inputs and conduct analysis.
 
 from __future__ import division
 import mahmodel_road_only as mahmodel
@@ -1951,7 +1939,7 @@ def run_sobol_computation(start_index, n_samples, partial_dict_name, scenarios, 
 	print 'starting f_V computation'
 	f_V_start = time.time()
 
-	for i in range(0, 1):#n_bridges): # TODO PUT BACK TO N_BRIDGES
+	for i in range(0, n_bridges): # TODO PUT BACK TO N_BRIDGES
 
 		temp_times, temp_trips, temp_vmts, temp_delay_costs, temp_conn_costs, temp_indirect_costs, temp_direct_costs, temp_avg_time, \
 		temp_avg_trip, temp_avg_vmt, temp_exp_indirect_cost, temp_exp_direct_cost, temp_exp_cost, temp_retrofit_cost, temp_damage_tracker_v = run_traffic_model_set(bridge_ids,partial_dict, map_indices, map_weights,
@@ -2093,46 +2081,3 @@ def run_sobol_computation(start_index, n_samples, partial_dict_name, scenarios, 
 		print b, sobol_dict[b]['S_cost']
 
 	print 'Congratulations! Your run has been completed successfully.'
-
-	# print '*** Times'
-	# print f_X_times
-	# print f_X_avg_time
-	# print f_V_times
-	# print f_V_avg_time
-	#
-	# print '*** Costs'
-	# print f_X_delay_costs
-	# print f_X_conn_costs
-	# print f_V_delay_costs
-
-# compare_bridge_damage_rates(10, scenarios=30)
-# get_bridge_damage_rates(1, False, 10) # in cs1, bridge 49 does not get damaged when unretrofitted; in cs2, same with bridge 1475
-
-# # Find a single set of uniform random numbers that result in non-zero rates of bridge damage for unretrofitted bridges in CS1, CS2, and CS3.
-# # Then save it for use with all 3 case studies.
-# sc = False
-# while sc == False:
-# 	iterate_damage_rates(1, False, scenarios=25) # find a U that works for cs 1
-# 	sc2 = get_bridge_damage_rates(2, False, 10) # test cs2 using U that works for cs1
-# 	sc3 = get_bridge_damage_rates(3, False, 10) # test cs3 using U that works for cs1
-# 	if sc2 == True and sc3 == True:
-# 		sc = True
-#
-# with open('sobol_output/cs1/U_good.pkl', 'rb') as f:
-# 	U_good = pickle.load(f)
-#
-# with open('sobol_input/U_cs_s1992d10.pkl', 'wb') as f:
-# 	pickle.dump(U_good, f)
-
-
-# generate a good U for cs9
-# iterate_damage_rates(9, p = False, scenarios=20)
-
-# check whether U that works for cs1, cs2, cs3 also works for cs9 -- IT DOES NOT. Bridge 941 never gets damaged.
-# get_bridge_damage_rates(9, p = False, dam_maps_per_scenario=10, scenarios=20)
-
-# get_bridge_damage_rates(cs_number=3, p = False, dam_maps_per_scenario= 10, scenarios = 27, test = True)
-
-# STUFF FOR sf_fullr
-# iterate_damage_rates_sf_fullr(p=False,scenarios=30,dam_maps_per_scenario=10)
-# sc = get_bridge_damage_rates_sf_fullr(p=False,dam_maps_per_scenario=10,scenarios=30,test=False)

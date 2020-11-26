@@ -1,0 +1,55 @@
+(dp0
+S'Sobol exp. total'
+p1
+S'#CC79A7'
+p2
+sS'OAT total'
+p3
+S'#D55E00'
+p4
+sS'composite'
+p5
+S'#009E73'
+p6
+sS'age'
+p7
+S'#0072B2'
+p8
+sS'fragility'
+p9
+S'#56B4E9'
+p10
+sS'OAT'
+p11
+g4
+sS'traffic'
+p12
+S'#E69F00'
+p13
+sS'p0.8'
+p14
+S'#824E49'
+p15
+sS'Sobol, exp. cost'
+p16
+g2
+sS'Sobol'
+p17
+g2
+sS'oldest'
+p18
+g8
+sS'p0.2'
+p19
+S'#DDACE3'
+p20
+sS'busiest'
+p21
+g13
+sS'Sobol, perc'
+p22
+g2
+sS'weakest'
+p23
+g10
+s.
