@@ -69,6 +69,6 @@ make_convergence_plots_total.py -- check the convergence of bridges' estimated t
 
 make_ranking_convergence_plots.py -- check the convergence of bridge rankings based on estimated Sobol' indices as sample size changes.
 
-
+process_results_sf.py -- prints estimates of the total-order Sobol' indices of all 71 bridges in the case study to the screen.
 
 
