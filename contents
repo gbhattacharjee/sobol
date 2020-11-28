@@ -5,6 +5,9 @@ Created by Gitanjali Bhattacharjee
 Contents of gbhattacharjee/sobol repository.
 If you have questions, please email me at gxbhattacharjee@gmail.com.
 
+To get an estimate of bridges' total-order Sobol' indices, simply run main() in process_results_sf.py. 
+
+
 Note that estimating total-order Sobol' indices and creating various plots based on those estimates or the existing retrofit results is doable on a local machine. 
 
 Running new samples (or re-running existing samples) using run_sobol.py will likely take significantly longer. The results in this repository were obtained using a high-performance cluster, not a local machine. 
@@ -13,9 +16,6 @@ To profile performance, either
 
 (1) run a batch containing a single sample of the fragility function parameter vector F using run_sobol.py or
 (2) Get the runtime of a single function evaluation. Run mahmodel_road_only.py on a single damage map (i.e., run a single traffic assignment). It will take (N x B x S x D)
-
-
-To get an estimate of bridges' total-order Sobol' indices, simply run main() in process_results_sf.py. 
 
 
 *** INPUT ***
