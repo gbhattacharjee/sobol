@@ -7,15 +7,16 @@ If you have questions, please email me at gxbhattacharjee@gmail.com.
 
 To get an estimate of bridges' total-order Sobol' indices, simply run main() in process_results_sf.py. 
 
-
 Note that estimating total-order Sobol' indices and creating various plots based on those estimates or the existing retrofit results is doable on a local machine. 
 
 Running new samples (or re-running existing samples) using run_sobol.py will likely take significantly longer. The results in this repository were obtained using a high-performance cluster, not a local machine. 
 
 To profile performance, either
 
-(1) run a batch containing a single sample of the fragility function parameter vector F using run_sobol.py or
-(2) Get the runtime of a single function evaluation. Run mahmodel_road_only.py on a single damage map (i.e., run a single traffic assignment). It will take (N x B x S x D)
+(1) Run a batch containing a single sample of the fragility function parameter vector F using run_sobol.py.
+(2) Get the runtime of a single function evaluation. Run mahmodel_road_only.py on a single damage map (i.e., run a single traffic assignment). It will take (N x B x S x D) times the runtime of that single function evaluation to estimate the total-order Sobol' indices of a set of B bridges based on N samples with S scenarios and D damage maps per scenario.
+
+The files necessary to run retrofit testing for different retrofit strategies are also included in this repository.
 
 
 *** INPUT ***
@@ -36,16 +37,19 @@ To profile performance, either
 - sobol_input/sf_fullr_testing_map_indices.pkl -- indices (row numbers in sample_ground_motion_intensity_maps_road_only_filtered.txt) of the 45 ground-motion maps that make up the testing set
 - sobol_input/sf_fullr_testing_map_weights.pkl -- weights (annual rates of occurrence) of the ground-motion maps in the testing set
 - sobol_input/U_good_sf_fullr.pkl -- a set of common random numbers used to sample damage maps in compute_bridge_sobol_sf_full.py
+- sobol_input/sf_fullr_2020 - *_rets.csv -- a list of bridges, in order of decreasing retrofit priority according to the strategy (denoted by *) in the title of the file
 
 *** SOBOL_OUTPUT ***
 - sobol_output/run_sf_fullr_total_all -- contains the results of evaluations of points and hybrid points (F and F'). The results are batched; each batch includes 5 samples.
+- sobol_output/retrofits -- contains the results of retrofit strategies based on bridge characteristics (age, fragility, traffic volume, and the composite thereof), one-at-a-time (OAT) analysis, and the Sobol' index-based strategy. Also contains the results of Sobol' index-based retrofit strategies computed with respect to different numbers of samples used to estimate Sobol' indices.
 
 
+*** SCRIPTS *** 
 mahmodel_road_only.py -- function main() performs traffic simulation for a particular sample of the fragility function parameter vector; for each sample, it simulates D damage maps for each of S scenarios in the specified set of ground-motions and returns the expected cost of the road network performance, among other outputs. This is a modified version of the file of the same name created by Mahalia Miller and available at https://github.com/bakerjw/bayAreaTransportation. 
 
 compute_bridge_sobol_sf_full.py -- contains the function run_sobol_computation(), which processes batches of samples of the fragility function parameter vector and stores the expected costs (as well as other outputs of interest) in sobol_output.
 
-process_retrofit_results.py -- 
+process_retrofit_results.py -- processes the reduction in the expected cost of network performance that results from each retrofit strategy at each number of retrofits tested, then plots the results.
 
 run_sobol.py -- wrapper function in which we specify the settings of a Sobol' index computation, run a limited number of samples, and time itul
 
