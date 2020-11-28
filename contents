@@ -55,7 +55,7 @@ run_retrofit_testing_sf_fullr.py --
 
 make_retrofit_samples.py -- creates fragility function parameter vectors that correspond to user-specified retrofits. Use to make F_samples_*.pkl and F_prime_samples_*.pkl.
 
-network_effects.py -- computes 
+network_effects.py -- computes and plots network effects of retrofits for each strategy.
 
 make_inputs.py -- creates samples of fragility function parameter vector in which each bridge has equal probabilities of being retrofitted and being unretrofitted.
 

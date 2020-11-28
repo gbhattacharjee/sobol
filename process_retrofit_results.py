@@ -74,8 +74,8 @@ def compute_weighted_average_performance(lnsas, map_weights, num_damage_maps, tr
 			direct_costs[np.arange(start=j, stop=scenarios * num_damage_maps, step=scenarios)])
 		temp_time_cost = [alpha*(t - no_damage_travel_time) for t in temp_times]
 		temp_conn_cost = [beta*(no_damage_trips_made-t) for t in trips_made]
-		temp_cost = [t1 + t2 for t1 in temp_time_cost, t2 in temp_conn_cost]
-		print('j = ', j, np.var(temp_cost))
+		temp_cost = [temp_time_cost[i] + temp_conn_cost[i] for i in range(0,len(temp_time_cost))]
+		# print('j = ', j, np.var(temp_cost))
 		assert temp_trips.shape[0] == num_damage_maps, 'Error -- wrong number of trips.'
 		assert temp_times.shape[0] == num_damage_maps, 'Error -- wrong number of times.'
 		assert temp_vmts.shape[0] == num_damage_maps, 'Error -- wrong number of vmts.'
@@ -360,6 +360,143 @@ def get_baseline_retrofit_results(n_retrofits, no_damage_travel_time, no_damage_
 	else:
 		return f_X_delay_costs, f_X_conn_costs, f_X_indirect_costs, f_X_direct_costs, f_X_exp_cost
 
+def get_retrofit_results(output_folder, n_scenarios, filename='_sf_full', print_results=True): #TODO -- correct expectation computation
+
+	scenarios = n_scenarios
+
+	# store the results
+	fX_times_output = output_folder + 'fX_times' + filename  # travel times for f_X
+	fX_trips_output = output_folder + 'fX_trips' + filename  # trips made for f_X
+	fX_vmts_output = output_folder + 'fX_vmts' + filename  # VMTs for f_X
+	fX_avg_times_output = output_folder + 'fX_avg_time' + filename  # average TT
+	fX_avg_trips_output = output_folder + 'fX_avg_trips' + filename  # average trips made
+	fX_avg_vmts_output = output_folder + 'fX_avg_vmts' + filename  # average VMT
+	fX_delay_costs_output = output_folder + 'fX_delay_costs' + filename
+	fX_conn_costs_output = output_folder + 'fX_conn_costs' + filename
+	fX_indirect_costs_output = output_folder + 'fX_indirect_costs' + filename
+	fX_direct_costs_output = output_folder + 'fX_direct_costs' + filename
+	fX_exp_indirect_cost_output = output_folder + 'fX_exp_indirect_costs' + filename
+	fX_exp_direct_cost_output = output_folder + 'fX_exp_direct_costs' + filename
+	fX_expected_cost_output = output_folder + 'fX_exp_costs' + filename
+	#
+	# damage_x_output = output_folder + 'damage_x' + filename
+	#
+	# # save data for f_X
+	# with open(damage_x_output, 'rb') as f:
+	# 	damage_tracker = pickle.load(f)
+
+	with open(fX_times_output, 'rb') as f:  # save raw performance data
+		f_X_times = pickle.load(f)
+	with open(fX_trips_output, 'rb') as f:
+		f_X_trips = pickle.load(f)
+	with open(fX_vmts_output, 'rb') as f:
+		f_X_vmts = pickle.load(f)
+
+	with open(fX_avg_times_output, 'rb') as f:  # save average (expected) performance data
+		f_X_avg_time = pickle.load(f)
+	with open(fX_avg_trips_output, 'rb') as f:
+		f_X_avg_trip = pickle.load(f)
+	with open(fX_avg_vmts_output, 'rb') as f:
+		f_X_avg_vmt = pickle.load(f)
+
+	with open(fX_delay_costs_output, 'rb') as f:
+		f_X_delay_costs = pickle.load(f)
+	with open(fX_conn_costs_output, 'rb') as f:
+		f_X_conn_costs = pickle.load(f)
+	with open(fX_direct_costs_output, 'rb') as f:
+		f_X_direct_costs = pickle.load(f)
+	with open(fX_indirect_costs_output, 'rb') as f:
+		f_X_indirect_costs = pickle.load(f)
+
+	with open(fX_exp_direct_cost_output, 'rb') as f:
+		f_X_exp_direct_cost = pickle.load(f)
+	with open(fX_exp_indirect_cost_output, 'rb') as f:
+		f_X_exp_indirect_cost = pickle.load(f)
+	with open(fX_expected_cost_output, 'rb') as f:
+		f_X_exp_cost = pickle.load(f)
+
+	# print 'f_X_times.shape', f_X_times.shape
+	batch_size = f_X_times.shape[0]
+
+	# Get the weighted average of all metrics of interest using the updated calculation and raw results.
+	tt0, vmt0, trips0 = load_individual_undamaged_stats()
+
+	if scenarios == 30:
+		map_indices_input = 'sobol_input/sf_fullr_training_map_indices.pkl'  # S = 30 for training sf_fullr
+		map_weights_input = 'sobol_input/sf_fullr_training_map_weights.pkl'  # S = 30 for training sf_fullr
+	elif scenarios == 45:
+		map_indices_input = 'sobol_input/sf_fullr_testing_map_indices.pkl'  # S = 30 for training sf_fullr
+		map_weights_input = 'sobol_input/sf_fullr_testing_map_weights.pkl'  # S = 30 for training sf_fullr
+	else:
+		print 'Need 30 or 45 scenarios.'
+
+	with open(map_indices_input, 'rb') as f:
+		map_indices = pickle.load(f)
+
+	with open(map_weights_input, 'rb') as f:
+		map_weights = pickle.load(f)
+
+	if len(map_indices) != scenarios:
+		map_indices = map_indices[0]
+		map_weights = map_weights[0]
+
+	## GB: this gets hazard-consistent maps that we created from Miller's subsetting procedure
+	sa_matrix_full = util.read_2dlist('input/sample_ground_motion_intensity_maps_road_only_filtered.txt',
+									  delimiter='\t')
+	sa_matrix = [sa_matrix_full[i] for i in
+				 map_indices]  # GB: get the ground_motions for just the scenarios we are interested in
+
+	lnsas = []
+	magnitudes = []
+	for row in sa_matrix:
+		lnsas.append([log(float(sa)) for sa in row[4:]])
+		magnitudes.append(float(row[2]))
+
+	temp_fX_avg_times = np.zeros((batch_size,))
+	temp_fX_avg_vmts = np.zeros((batch_size,))
+	temp_fX_avg_trips = np.zeros((batch_size,))
+	temp_fX_exp_indirect_cost = np.zeros((batch_size,))
+	temp_fX_exp_direct_cost = np.zeros((batch_size,))
+	temp_fX_expected_cost = np.zeros((batch_size,))
+
+	for k in range(0, batch_size):
+		# print '*** batch = ', i, ' sample = ', k
+		average_travel_time, average_vmt, average_trips_made, average_direct_cost, average_delay_cost, average_connectivity_cost, \
+		average_indirect_cost = compute_weighted_average_performance(lnsas, map_weights, num_damage_maps=10,
+																	 travel_times=f_X_times[k, :],
+																	 vmts=f_X_vmts[k, :],
+																	 trips_made=f_X_trips[k, :],
+																	 no_damage_travel_time=tt0,
+																	 no_damage_vmt=vmt0,
+																	 no_damage_trips_made=trips0,
+																	 direct_costs=f_X_direct_costs[k, :])
+
+		temp_fX_avg_times[k] = average_travel_time
+		temp_fX_avg_vmts[k] = average_vmt
+		temp_fX_avg_trips[k] = average_trips_made
+		temp_fX_exp_direct_cost[k] = average_direct_cost
+		temp_fX_exp_indirect_cost[k] = average_indirect_cost  # hourly
+		temp_fX_expected_cost[k] = 24 * 125 * average_indirect_cost + average_direct_cost
+
+	assert np.any(temp_fX_exp_indirect_cost == 0) == False, 'Error in correcting fX_exp_indirect_cost.'
+	assert np.any(temp_fX_expected_cost == 0) == False, 'Error in correcting fX_expected_cost.'
+
+
+	# # print the expected network performance
+	# if print_results:
+	# 	print 'for R = ', n_retrofits, ' expected travel times = ', f_X_avg_time, f_X_avg_time-tt0, alpha*(f_X_avg_time-tt0)/3600
+	# 	print 'for R = ', n_retrofits, ' expected trips made = ', f_X_avg_trip, trips0-f_X_avg_trip, beta*(trips0-f_X_avg_trip)
+	# 	print 'for R = ', n_retrofits, ' expected indirect costs = ', f_X_exp_indirect_cost*24*125 #24*125*(alpha*(f_X_avg_time-tt0)/3600 + beta*(trips0-f_X_avg_trip))
+	# 	# print 24*125*(alpha*(f_X_avg_time-tt0)/3600 + beta*(trips0-f_X_avg_trip)) # should be the same as f_X_exp_indirect_cost
+	# 	print 'for R = ', n_retrofits, ' expected direct costs = ', f_X_exp_direct_cost
+	# 	# print f_X_exp_direct_cost + (f_X_exp_cost-f_X_exp_direct_cost)
+	# 	print 'for R = ', n_retrofits, ' expected total cost = ', f_X_exp_cost #, f_X_exp_indirect_cost*24*125+f_X_exp_direct_cost
+
+
+	# return f_X_avg_time, f_X_avg_vmt, f_X_avg_trip, f_X_delay_costs, f_X_conn_costs, f_X_indirect_costs, f_X_exp_indirect_cost*24*125, f_X_exp_direct_cost, f_X_exp_cost
+	return temp_fX_avg_times, temp_fX_avg_vmts, temp_fX_avg_trips, f_X_delay_costs, f_X_conn_costs, f_X_indirect_costs, temp_fX_exp_indirect_cost*24*125, temp_fX_exp_direct_cost, temp_fX_expected_cost
+
+
 def get_all_sobol_retrofit_result(strategy):
 
 	baseline = 32417786.20037872 # for S = 45, expected total cost with REVISED AVERAGE, not including retrofit cost
@@ -392,13 +529,15 @@ def get_all_sobol_retrofit_result(strategy):
 
 def plot_retrofit_results(positive=True, training=False): # MOST UPDATED PLOTTING OF EXP. TOTAL COST REDUCTION VS. NUMBER OF RETROFITS
 	# folder = 'figs_diff_p/'
-	folder = 'figs_paper_final_redone/'
-	if training:
-		subfolder = 'training/'
-	else:
-		subfolder = 'testing/'
+	# folder = 'figs_paper_final_redone/'
+	folder = 'figs/'
+	# if training:
+	# 	subfolder = 'training/'
+	# else:
+	# 	subfolder = 'testing/'
 
-	fig_folder = folder + subfolder
+	# fig_folder = folder + subfolder
+	fig_folder = folder
 
 	no_damage_travel_time, no_damage_vmt, no_damage_trips_made, _ = precompute_network_performance()
 
@@ -469,11 +608,11 @@ def plot_retrofit_results(positive=True, training=False): # MOST UPDATED PLOTTIN
 	else:
 		title = 'sf_fullr_exp_total_cost_vs_n_bridges'
 
-	with open(fig_folder + 'percent_results.pkl', 'wb') as f:
-		pickle.dump(percent_results,f)
-
-	with open(fig_folder + 'percent_results.pkl', 'rb') as f:
-		percent_results = pickle.load(f)
+	# with open(fig_folder + 'percent_results.pkl', 'wb') as f:
+	# 	pickle.dump(percent_results,f)
+	#
+	# with open(fig_folder + 'percent_results.pkl', 'rb') as f:
+	# 	percent_results = pickle.load(f)
 
 	marker_style = 'o'
 	fig = plt.figure()
