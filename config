@@ -1,7 +1,7 @@
 Created by Gitanjali Bhattacharjee
 10 November 2020
 
-This code was written and has only been tested in Python 2.7.13. The following package versions are required:
+This code was written and has only been tested in Python 2.7.13. The following package versions are required (to run the traffic simulation in mahmodel_road_only.py):
 
 - networkx 1.8.x
 - pp 1.6.5

@@ -1,3 +1,8 @@
+Created by Gitanjali Bhattacharjee
+10 November 2020
+
+These are some useful benchmarks to make sure your results are correct.
+
 (1) result of main() in process_results_sf.py, the printed output should be:
 
 f_V.shape  (460, 71)
