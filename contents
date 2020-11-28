@@ -2,8 +2,11 @@ Created by Gitanjali Bhattacharjee
 10 November 2020
 
 
-Contents of gbhattacharjee/sobol repository.
-If you have questions, please email me at gxbhattacharjee@gmail.com.
+Contents of gbhattacharjee/sobol repository. If you have questions, please email me at gxbhattacharjee@gmail.com.
+
+This repository includes all files (both scripts and results) necessary to reproduce the figures in the paper 'Using global variance-based sensitivity analysis to prioritise bridge retrofits in a regional road network subject to seismic hazard' by G. Bhattacharjee and J. W. Baker. The scripts can be modified to estimate the Sobol' indices of bridges in other regional road networks, too. 
+
+The traffic simulation portion of this code is modified from the simulator written by Mahalia Miller; for more detail than is provided in the paper, see her thesis at: https://stacks.stanford.edu/file/druid:hx023kk0983/Mahalia_Miller_PhD-augmented.pdf. Miller also collected much of the bridge information used in this work and created the original version of the road network graph used.
 
 To get an estimate of bridges' total-order Sobol' indices, simply run main() in process_results_sf.py. 
 
@@ -21,12 +24,29 @@ The files necessary to run retrofit testing for different retrofit strategies ar
 
 *** INPUT ***
 - input -- contains a variety of files necessary to run traffic simulations of the damaged road network, including
-- input/sf_fullr_dict.pkl -- subset of master_bridge_dict_GB_omegas.pkl containing 71 bridges of interest in San Francisco; nested dictionary with first key being bridge (original) ID and nested keys being
+- input/sf_fullr_dict.pkl -- subset of master_bridge_dict_GB_omegas.pkl containing 71 bridges of interest in San Francisco; modified from '20140114_master_bridge_dict.pkl' in https://github.com/bakerjw/bayAreaTransportation. This is a nested dictionary with the first key being bridge (original) ID and nested keys being:
+	 - 'a_b_pairs_direct' -- list of (a,b) tuples that would be directly affected by bridge damage -- the bridge is carrying these roads (edges).
+	 - 'a_b_pairs_indirect' -- list of (a,b) tuples that would be indirectly affected indirectly (e.g., underpasses) by damage to the bridge.
+	 - 'age' -- age of the bridge in years.
+	 - 'area' -- area of bridge deck in [square feet], used for repair and retrofit cost estimation. Computed as the product of the bridge length and deck width.
+	 - 'com_lnSa' -- fragility function parameter (median lnSa) for the complete (collapsed) damage state of the bridge, in [g]. See Miller's thesis or the HAZUS/MCEER method for more detail.
+	 - 'county' -- county in which the bridge is located.
+	 - 'edge_ids_direct' -- edge object IDs for edges that would be directly affected by bridge damage; another way to describe the (a,b) tuples.
+	 - 'edge_ids_indirect' --edge object IDs for edges that would be indirectly affected by bridge damage (e.g., underpasses); another way to describe the (a,b) tuples.
+	 - 'ext_lnSa' -- fragility function parameter (median lnSa) for the extensive damage state of the bridge, in [g]. See Miller's thesis or the HAZUS/MCEER method for more detail.
+	 - 'jessica_id' -- artefact of previous modeling; not used.
+	 - 'loren_row_number' -- artefact of previous modeling; not used.
+	 - 'mod_lnSa' -- fragility function parameter (median lnSa) for the moderate damage state of the bridge, in [g]. See Miller's thesis or the HAZUS/MCEER method for more detail.
+	 - 'new_id' -- the new ID that excludes filtered-out bridges; ranges from [1-1743]. Per Mahalia Miller.
+	 - 'omega' -- factor by which we multiply the bridge's ext_lnSa to model seismic retrofit.
+	 - 'original_id' -- original ID of the bridge; ranges from [1-1889]. Per Mahalia Miller.
+	 - 'repair' -- estimated bridge repair cost, in [USD]. NOT USED.
+	 - 'traffic' -- daily average traffic volume that passes over the bridge, as of 2010.
 
 - input/sf_fullr_bridge_ids.pkl -- list of bridge (original) IDs, used to ensure consistency in the order in which we iterate over bridges in the case study
 - input/master_bridge_dict_GB_omegas.pkl -- nested dictionary with first key being bridge (original)ID and nested keys being the same as in sf_fullr_dict.pkl; contains all 1743 bridges owned by Caltrans in the SF Bay Area
-- input/graphMTC_GB.gpickle -- graph of the road network, including bridges
-- input/sample_ground_motion_intensity_maps_road_only_filtered.txt -- 1992 ground-motion intensity maps (Sa at T = 1s) for the 1743 bridges owned by Caltrans in the SF Bay Area. Each row is a map. The columns refer to:  first column is simulation number, second is fault id, third is magnitude, fourth is the annual occurrence rate (SUPER USEFUL), fifth is Sa (NOT logSa) in site new ID 1, sixth is Sa in site new ID 2, ...site ID n. This is a full hazard-consistent set of events.
+- input/graphMTC_GB.gpickle -- graph of the road network, including bridges. This is a modified version of graphMTC.gpickle created by Mahalia Miller -- see her thesis at https://stacks.stanford.edu/file/druid:hx023kk0983/Mahalia_Miller_PhD-augmented.pdf for further details.
+- input/sample_ground_motion_intensity_maps_road_only_filtered.txt -- 1992 ground-motion intensity maps (Sa at T = 1s) for the 1743 bridges owned by Caltrans in the SF Bay Area. Each row is a map. Per Mahalia Miller, creator of this dataset, the columns refer to:  first column is simulation number, second is fault id, third is magnitude, fourth is the annual occurrence rate (SUPER USEFUL), fifth is Sa (NOT logSa) in site new ID 1, sixth is Sa in site new ID 2, ...site ID n. This is a full hazard-consistent set of events. See her thesis at https://stacks.stanford.edu/file/druid:hx023kk0983/Mahalia_Miller_PhD-augmented.pdf for further details.
 
 *** SOBOL_INPUT ***
 - sobol_input -- contains files necessary to implement the Sobol' index method, including:
@@ -61,6 +81,8 @@ make_retrofit_samples.py -- creates fragility function parameter vectors that co
 
 network_effects.py -- computes and plots network effects of retrofits for each strategy.
 
+mahmodel_road_only.py -- modified version of mahmodel_road_only.py in https://github.com/bakerjw/bayAreaTransportation. Used to compute the expected cost of the road network performance for a given fragility function parameter vector (sample) in the Sobol' index method.
+
 make_inputs.py -- creates samples of fragility function parameter vector in which each bridge has equal probabilities of being retrofitted and being unretrofitted.
 
 ita_cost.py -- iterative traffic assignment module described in more detail in Mahalia Miller's thesis. Modified version of ita.py in repository at https://github.com/bakerjw/bayAreaTransportation that implements the changes specified in travel_model_notes.
@@ -76,5 +98,7 @@ make_convergence_plots_total.py -- check the convergence of bridges' estimated t
 make_ranking_convergence_plots.py -- check the convergence of bridge rankings based on estimated Sobol' indices as sample size changes.
 
 process_results_sf.py -- prints estimates of the total-order Sobol' indices of all 71 bridges in the case study to the screen.
+
+ret_cost_test.py -- test different ways to account for the cost of retrofits in the Sobol' index method. Note that 'ret_ratio_reverse' is the ratio of the expected cost of road network performance to the cumulative retrofit cost; running plot_retrofit_results_vs_cumulative_retrofit_cost('ret_ratio_reverse') will reproduce the figure in the paper.
 
 

@@ -668,14 +668,18 @@ def get_results_from_pickles(results_directory, results_folder_stub, n_batches, 
 
 def main():
 
-	results_directory = 'sobol_output/run_sf_fullr_total_all/'
-	results_folder_stub = 'run_sf_'
-	n_batches =  92 # number of batches for which we actually have results
-	max_batches = 140 # maximum batch index (or larger)
-	n_scenarios = 30 # S= 30 for training
-	print '****** sf_fullr results ******'
-	sobol_index_dict, _, _, _, _ = get_results_from_pickles(results_directory, results_folder_stub, n_batches, max_batch=max_batches, scenarios=n_scenarios, cost='total', retrofit=False, batch_size=5) # total cost, not including retrofit cost
+	# results_directory = 'sobol_output/run_sf_fullr_total_all/'
+	# results_folder_stub = 'run_sf_'
+	# n_batches =  92 # number of batches for which we actually have results
+	# max_batches = 140 # maximum batch index (or larger)
+	# n_scenarios = 30 # S= 30 for training
+	# print '****** sf_fullr results ******'
+	# sobol_index_dict, _, _, _, _ = get_results_from_pickles(results_directory, results_folder_stub, n_batches, max_batch=max_batches, scenarios=n_scenarios, cost='total', retrofit=False, batch_size=5) # total cost, not including retrofit cost
 
+	bdict, bids = get_sf_fullr_dict()
+	print(bdict['1886'].keys())
+	for k in bdict['1886'].keys():
+		print k, bdict['1886'][k]
 if __name__ == "__main__":
     # execute only if run as a script
     main()
