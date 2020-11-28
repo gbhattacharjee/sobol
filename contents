@@ -53,9 +53,9 @@ process_retrofit_results.py -- processes the reduction in the expected cost of n
 
 run_sobol.py -- wrapper function in which we specify the settings of a Sobol' index computation, run a limited number of samples, and time itul
 
-retrofit_testing.py -- 
+retrofit_testing.py -- tests the six retrofit strategies of interest on a set of S = 45 ground-motion maps.
 
-run_retrofit_testing_sf_fullr.py -- 
+run_retrofit_testing_sf_fullr.py -- wrapper function in which we specify the settings for retrofit_testing.py.
 
 make_retrofit_samples.py -- creates fragility function parameter vectors that correspond to user-specified retrofits. Use to make F_samples_*.pkl and F_prime_samples_*.pkl.
 
@@ -65,7 +65,7 @@ make_inputs.py -- creates samples of fragility function parameter vector in whic
 
 ita_cost.py -- iterative traffic assignment module described in more detail in Mahalia Miller's thesis. Modified version of ita.py in repository at https://github.com/bakerjw/bayAreaTransportation that implements the changes specified in XXXXXXXXX.
 
-bd_test.py -- contains a function to build the origin-destination matrix required to run traffic simulations.
+bd_test.py -- contains a function to build the origin-destination matrix required to run traffic simulations. Modification of bd.py written by Mahalia Miller and available at https://github.com/bakerjw/bayAreaTransportation.
 
 util.py -- various helper functions used in mahmodel_road_only.py; written by Mahalia Miller and also available at https://github.com/bakerjw/bayAreaTransportation.
 
