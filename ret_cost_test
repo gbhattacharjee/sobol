@@ -590,7 +590,7 @@ def plot_retrofit_results_vs_cumulative_retrofit_cost(tag):
 
 	# folder = 'figs_diff_p/'
 	# folder = 'exp_cost_vs_cum_cost/'
-	folder = 'figs_paper_final_redone/'
+	folder = 'figs/'
 
 	fig_folder = folder
 
