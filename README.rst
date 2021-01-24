@@ -34,6 +34,11 @@ There are different types of Sobol' indices and particular conditions
 under which they can be estimated -- for details, see the paper associated with this repository or *Global
 Sensitivity Analysis: The Primer* by Andrea Saltelli et al.
 
+How can I use **sobol**?
+========================
+
+Say we have a physical system whose performance, *y*, depends on three variables: *x_1*, *x_2*, *x_3*.
+
 How can I install **sobol**?
 ============================
 
@@ -57,7 +62,3 @@ to install them. For example:
 | ``pip install plotly``
 
 
-How can I use **sobol**?
-========================
-
-[in progress]
