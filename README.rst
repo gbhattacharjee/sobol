@@ -25,5 +25,5 @@ How can I install **sobol**?
 
 In Terminal (on Mac):
 
-``cd [myDirectory]``
-``git clone https://github.com/gbhattacharjee/sobol.git``
+|``cd [myDirectory]``
+|``git clone https://github.com/gbhattacharjee/sobol.git``
