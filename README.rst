@@ -19,3 +19,11 @@ outputs (the expected cost of road network performance over a set of earthquake 
 
 One of the questions we can answer with this data set and these methods is *Which bridges are the most important to
 retrofit if we want to reduce the expected cost of the road network performance?*
+
+How can I install **sobol**?
+============================
+
+In Terminal (on Mac):
+
+``cd [myDirectory]``
+``git clone https://github.com/gbhattacharjee/sobol.git``
