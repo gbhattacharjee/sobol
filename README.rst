@@ -27,8 +27,8 @@ How can I install **sobol**?
 
 In Terminal (on Mac), use the following, replacing [myDirectory] with your preferred directory, e.g. ``cd Desktop``.
 
-``cd [myDirectory]`` :raw-html:`<br />`
-``git clone https://github.com/gbhattacharjee/sobol.git``
+| ``cd [myDirectory]``
+| ``git clone https://github.com/gbhattacharjee/sobol.git``
 
 Before running any scripts in **sobol**, make sure you have all the required packages in config.
 
