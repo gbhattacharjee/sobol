@@ -30,7 +30,20 @@ In Terminal (on Mac), use the following, replacing [myDirectory] with your prefe
 | ``cd [myDirectory]``
 | ``git clone https://github.com/gbhattacharjee/sobol.git``
 
-Before running any scripts in **sobol**, make sure you have all the required packages in config.
+Before running any scripts in **sobol**, make sure you have all the required ``Python`` packages in config. Some
+packages require specific (earlier) versions, so I recommend creating a virtual environment (e.g., ``venv``) in which
+to install them. For example:
+
+| ``cd sobol``
+| ``python2 -m venv sobol-venv``
+| ``source sobol-venv/bin/activate``
+| ``pip install networkx==1.8.1``
+| ``pip install pp==1.6.5``
+| ``pip install scipy``
+| ``pip install numpy``
+| ``pip install matplotlib``
+| ``pip install plotly``
+
 
 How can I use **sobol**?
 ========================
