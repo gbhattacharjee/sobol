@@ -46,18 +46,18 @@ system can be described as y = sin x\ :sub:`1` + a sin \ :sup:`2` x\ :sub:`2` + 
 
 There are four types of reasons we might want to know this (Saltelli et al. 2004):
 
-* **factors prioritisation** -- by setting which factor (x\ :sub:`1`, x\:sub:`2`, or x\ :sub:`3`) to a chosen value
-will we reduce the uncertainty in *y* the most? We might ask this question if we'd like to rank the inputs by their
-importance in terms of influencing the output.
-* **factors fixing** -- which factors are not influential in terms of the output *y*? We might ask this question if
-we wanted to fix some factors without affecting the variance in *y*, rather than letting all of the inputs vary over
-their domains.
-* **variance cutting** -- if we wanted to achieve a particular reduction in the variance of *y*, which minimal subset
- of the inputs would we need to fix to particular values to do so? We might ask such a question if we had a limited
- budget with which to reduce variance in the inputs and wanted to get the most value for our money.
-* **factors mapping** -- which factors are responsible for realisations of *y* in a particular region of interest? We
- might ask such a question if we were concerned with the safety of the system under investigation, for instance, and
- wanted to understand what input values and combinations of input values lead to safe vs. dangerous performance.
+* | **factors prioritisation** -- by setting which factor (x\ :sub:`1`, x\:sub:`2`, or x\ :sub:`3`) to a chosen value
+| will we reduce the uncertainty in *y* the most? We might ask this question if we'd like to rank the inputs by their
+| importance in terms of influencing the output.
+* | **factors fixing** -- which factors are not influential in terms of the output *y*? We might ask this question if
+| we wanted to fix some factors without affecting the variance in *y*, rather than letting all of the inputs vary over
+| their domains.
+* | **variance cutting** -- if we wanted to achieve a particular reduction in the variance of *y*, which minimal subset
+| of the inputs would we need to fix to particular values to do so? We might ask such a question if we had a limited
+| budget with which to reduce variance in the inputs and wanted to get the most value for our money.
+* | **factors mapping** -- which factors are responsible for realisations of *y* in a particular region of interest? We
+| might ask such a question if we were concerned with the safety of the system under investigation, for instance, and
+| wanted to understand what input values and combinations of input values lead to safe vs. dangerous performance.
 
 The sample data set addresses a question in the factors prioritisation setting -- by reducing the fragilities of
 which bridges could we improve the expected road network performance the most?
