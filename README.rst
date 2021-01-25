@@ -37,8 +37,10 @@ Sensitivity Analysis: The Primer* by Andrea Saltelli et al.
 How can I use **sobol**?
 ========================
 
-Say we have a physical system whose performance, *y*, depends on three variables: math::$x_1, x_2, x_3. Each
-variable math::x_i takes on values in the interval math::[-$\pi$, $\pi$].
+Say we have a physical system whose performance, *y*, depends on three variables, *x\ :sub:`1`*, *x\ :sub:`2`*, *x\
+:sub:`3`* that take values uniformly at random in the interval [*-\pi*, *\pi*].
+
+<img src="https://render.githubusercontent.com/render/math?math=e^{i \pi} = -1">
 
 How can I install **sobol**?
 ============================
