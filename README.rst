@@ -46,9 +46,9 @@ system can be described as y = sin x\ :sub:`1` + a sin \ :sup:`2` x\ :sub:`2` + 
 
 There are four types of reasons we might want to know this (Saltelli et al. 2004):
 
-* | **factors prioritisation** -- by setting which factor (x\ :sub:`1`, x\:sub:`2`, or x\ :sub:`3`) to a chosen value
-| will we reduce the uncertainty in *y* the most? We might ask this question if we'd like to rank the inputs by their
-| importance in terms of influencing the output.
+* | **factors prioritisation** -- by setting which factor (x\ :sub:`1`, x \:sub:`2`, or x\ :sub:`3`) to a chosen value
+  | will we reduce the uncertainty in *y* the most? We might ask this question if we'd like to rank the inputs by their
+  | importance in terms of influencing the output.
 * | **factors fixing** -- which factors are not influential in terms of the output *y*? We might ask this question if
 | we wanted to fix some factors without affecting the variance in *y*, rather than letting all of the inputs vary over
 | their domains.
