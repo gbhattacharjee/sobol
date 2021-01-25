@@ -19,6 +19,9 @@ similar questions. Specifically, **sobol** comprises:
   | parameters) and scalar outputs (the expected cost of road network performance over a set of earthquake rupture
   | scenarios).
 
+These methods should be applicable to other networks and performance metrics of interest, provided they meet the
+criteria outlined in the paper associated with this repository (Bhattacharjee and Baker TBD).
+
 How can I use **sobol**?
 ========================
 
@@ -103,5 +106,11 @@ Saltelli et al.
 
 References
 ==========
-Andrea Saltelli, Stefano Tarantola, F. Campolongo, and M. Ratto. (2004) *Sensitivity Analysis in Practice: A Guide to
-Assessing Scientific Models*. John Wiley & Sons, Ltd.
+Gitanjali Bhattacharjee and Jack W. Baker. (TBD) *Using global variance-based sensitivity analysis to prioritise
+bridge retrofits in a regional road network subject to seismic hazard*. Manuscript under review.
+
+Andrea Saltelli, Stefano Tarantola, Francesca Campolongo, and Marco Ratto. (2004) *Sensitivity Analysis in Practice: A
+Guide to Assessing Scientific Models*. John Wiley & Sons, Ltd.
+
+Andrea Saltelli, Marco Ratto, Terry Andres, Francesca Campolongo, Jessica Cariboni, Debora Gatelli, Michaela Saisana,
+Stefano Tarantola. (2008) *Global Sensitivity Analysis: The Primer.* John Wiley & Sons, Ltd.
