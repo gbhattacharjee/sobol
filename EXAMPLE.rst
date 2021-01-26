@@ -1,31 +1,50 @@
+Example problem
+===============
+
 Say we have a physical system whose performance, *y*, depends on three independent variables, x\
-:sub:`1`, x\:sub:`2`, x\ :sub:`3` that we model as taking values uniformly at random in the interval [*-\pi*, *\pi*].
+:sub:`1`, x\ :sub:`2`, x\ :sub:`3` that we model as taking values uniformly at random in the interval [*-\pi*, *\pi*].
 We model the performance of the system as y = sin x\ :sub:`1` + a sin \ :sup:`2` x\ :sub:`2` + b x\
-:sub:`3` :sup:`4` sin x\:sub:`1`. (This is the Ishigami function.) We would like to know which variable influences the
+:sub:`3` :sup:`4` sin x\ :sub:`1`. (This is the Ishigami function.)
+
+We would like to know which variable influences the
 performance of the physical system the most. Why? Perhaps there's a certain range of *y* that is acceptable, and we
-would like to set the values of x\:sub:`1`, x\:sub:`2`, x\ :sub:`3` such that *y* is always in that acceptable range.
+would like to set the values of x\ :sub:`1`, x\ :sub:`2`, x\ :sub:`3` such that *y* is always in that acceptable range.
+
+One way to understand the relative influence of each input with respect to the output is to perform a sensitivity
+analysis.
+
+What is sensitivity analysis (SA)?
+----------------------------------
+Saltelli et al. (2004) define sensitivity analysis as "the study of how the uncertainty in the output of a model \dots
+can be apportioned to different sources of uncertainty in the model input."
+
+Local (or deterministic) SA is performed around a particular point of interest in the model input space. Global (or
+probabilistic) SA considers the entire model input space.
+
+We will perform a global variance-based SA, the result of which is a Sobol' index for each of our three inputs.
 
 What is a Sobol' index?
-=======================
-
+-----------------------
 A Sobol' index approximates an exact sensitivity index that results from a global variance-based sensitivity analysis
-. The magnitude of a (normalized) Sobol' index indicates how much of the variance in an output quantity of interest
-can be attributed to variance in a particular input.
+. Sobol' indices are more efficient to compute than exact sensitivity indices. The magnitude of a (normalized) Sobol'
+index indicates how much of the variance in an output quantity of interest can be attributed to variance in a
+particular input.
 
 There are different orders of Sobol' index.
 
-* | A first-order Sobol' index indicates how much of the variance in the output can be attributed to variance in one
+* | A **first-order Sobol' index** indicates how much of the variance in the output can be attributed to variance in one
   | particular input alone.
-* | A total-order Sobol' index indicates how much of the output's variance can be attributed to variance in one
+* | A **total-order Sobol' index** indicates how much of the output's variance can be attributed to variance in one
   | particular input, including all of that input's interactions with other inputs.
 * | Sobol' indices of orders between 1 and the total number of inputs indicate how much of the output's variance can
   | be attributed to variance in one input, including its interactions of the specified order with other inputs.
 
+We will focus on total-order Sobol' indices for this example.
+
 What is an interaction?
 -----------------------
-In the sample data set included in **sobol**, the input quantities describe the fragilities of bridges in the San
-Francisco Bay Area road network and the output is a measure of the road network's performance. The bridges'
-total-order Sobol' indices tell us how much the fragility of each bridge influences the road network's performance.
+An interaction is that part of the response of an output *f(x)* to the values of x\ :sub:`a`, x\ :sub:`b` "that
+cannot be expressed as a superposition of effects separately due to" x\ :sub:`a`, x\ :sub:`b` (Saltelli et al. 2004).
 
 Why might I care about quantifying a component's importance?
 ============================================================
@@ -48,3 +67,17 @@ There are four types of reasons we might want to know how influential an input i
 
 The sample data set addresses a question in the factors prioritisation setting -- by reducing the fragilities of
 which bridges could we improve the expected road network performance the most?
+
+Where can I learn more about sensitivity analysis and/or Sobol' indices?
+========================================================================
+
+References
+==========
+Gitanjali Bhattacharjee and Jack W. Baker. (TBD) *Using global variance-based sensitivity analysis to prioritise
+bridge retrofits in a regional road network subject to seismic hazard*. Manuscript under review.
+
+Andrea Saltelli, Stefano Tarantola, Francesca Campolongo, and Marco Ratto. (2004) *Sensitivity Analysis in Practice: A
+Guide to Assessing Scientific Models*. John Wiley & Sons, Ltd.
+
+Andrea Saltelli, Marco Ratto, Terry Andres, Francesca Campolongo, Jessica Cariboni, Debora Gatelli, Michaela Saisana,
+Stefano Tarantola. (2008) *Global Sensitivity Analysis: The Primer.* John Wiley & Sons, Ltd.
