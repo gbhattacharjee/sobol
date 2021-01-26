@@ -3,12 +3,16 @@ Example problem (under construction)
 
 Say we have a physical system whose performance, *y*, depends on three independent variables, x\
 :sub:`1`, x\ :sub:`2`, x\ :sub:`3` that we model as taking values uniformly at random in the interval [*-\pi*, *\pi*].
-We model the performance of the system as y = sin x\ :sub:`1` + a sin \ :sup:`2` x\ :sub:`2` + b x\
-:sub:`3` :sup:`4` sin x\ :sub:`1`. (This is the Ishigami function.)
+We model the performance of the system as
 
-We would like to know which variable influences the
-performance of the physical system the most. Why? Perhaps there's a certain range of *y* that is acceptable, and we
-would like to set the values of x\ :sub:`1`, x\ :sub:`2`, x\ :sub:`3` such that *y* is always in that acceptable range.
+| y = sin x\ :sub:`1` + a sin \ :sup:`2` x\ :sub:`2` + b x\ :sub:`3` :sup:`4` sin x\ :sub:`1`.
+|
+
+This is the Ishigami function.
+
+We would like to know which variable influences the performance of the physical system the most. Why? Perhaps there's
+a certain range of *y* that is acceptable, and we would like to set the values of x\ :sub:`1`, x\ :sub:`2`, x\
+:sub:`3` such that *y* is always in that acceptable range.
 
 One way to understand the relative influence of each input with respect to the output is to perform a **sensitivity
 analysis**.
