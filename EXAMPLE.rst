@@ -1,5 +1,5 @@
-Example problem
-===============
+Example problem (under construction)
+====================================
 
 Say we have a physical system whose performance, *y*, depends on three independent variables, x\
 :sub:`1`, x\ :sub:`2`, x\ :sub:`3` that we model as taking values uniformly at random in the interval [*-\pi*, *\pi*].
@@ -10,12 +10,12 @@ We would like to know which variable influences the
 performance of the physical system the most. Why? Perhaps there's a certain range of *y* that is acceptable, and we
 would like to set the values of x\ :sub:`1`, x\ :sub:`2`, x\ :sub:`3` such that *y* is always in that acceptable range.
 
-One way to understand the relative influence of each input with respect to the output is to perform a sensitivity
-analysis.
+One way to understand the relative influence of each input with respect to the output is to perform a **sensitivity
+analysis**.
 
 What is sensitivity analysis (SA)?
 ----------------------------------
-Saltelli et al. (2004) define sensitivity analysis as "the study of how the uncertainty in the output of a model \dots
+Saltelli et al. (2004) define sensitivity analysis as "the study of how the uncertainty in the output of a model...
 can be apportioned to different sources of uncertainty in the model input."
 
 Local (or deterministic) SA is performed around a particular point of interest in the model input space. Global (or
@@ -67,9 +67,6 @@ There are four types of reasons we might want to know how influential an input i
 
 The sample data set addresses a question in the factors prioritisation setting -- by reducing the fragilities of
 which bridges could we improve the expected road network performance the most?
-
-Where can I learn more about sensitivity analysis and/or Sobol' indices?
-========================================================================
 
 References
 ==========
