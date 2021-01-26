@@ -6,9 +6,8 @@ Identify important components in complex networks
 
 What is **sobol**?
 ==================
-
 Which bridges are the most important to retrofit if we want to reduce the expected cost of the road network
-performance?
+performance given a regional seismic hazard?
 
 **sobol** is a repository that contains a set of methods and a sample data set with which to answer that and
 similar questions. Specifically, **sobol** comprises:
@@ -40,9 +39,19 @@ can be attributed to variance in a particular input. The larger the Sobol' index
 * | For a detailed treatment of Sobol' indices for bridge retrofit (or component upgrade) prioritisation, see the paper
   | associated with this repository (Bhattacharjee and Baker TBD).
 
+How is **sobol** organized?
+===========================
+This repository includes all files (both scripts and results) necessary to reproduce the figures in Bhattacharjee and
+Baker TBD. Many of these figures have already been reproduced and stored in the directory **figs**.
+
+* | CONTENTS details the contents of each directory as well as the purpose of each script.
+* | CONFIG specifies which version of Python you should use to run the scripts included in this repository, as well as
+  | the packages you need to install.
+* | BENCHMARKS includes detailed outputs against which to verify the results you get when running certain scripts on
+  | your own machine.
+
 How can I use **sobol**?
 ========================
-
 Try:
 
 * | Exploring the sample data set to better understand global variance-based sensitivity analysis or Sobol' indices.
@@ -53,7 +62,6 @@ Try:
 
 How can I install **sobol**?
 ============================
-
 In Terminal (on Mac), use the following, replacing [myDirectory] with your preferred directory, e.g. ``cd Desktop``.
 
 | ``cd [myDirectory]``
