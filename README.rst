@@ -58,11 +58,11 @@ In Terminal (on Mac), use the following, replacing [myDirectory] with your prefe
 
 | ``cd [myDirectory]``
 | ``git clone https://github.com/gbhattacharjee/sobol.git``
-
+|
 | Before running any scripts in **sobol**, make sure you have all the required ``Python`` packages in config. Some
 packages require specific (earlier) versions, so I recommend creating a virtual environment (e.g., ``venv``) in which
 to install them. For example:
-
+|
 | ``cd sobol``
 | ``python2 -m venv sobol-venv``
 | ``source sobol-venv/bin/activate``
