@@ -35,7 +35,7 @@ A Sobol' index approximates an exact sensitivity index that results from a globa
 . The magnitude of a (normalized) Sobol' index indicates how much of the variance in an output quantity of interest
 can be attributed to variance in a particular input. The larger the Sobol' index, the more influential the input.
 
-* | For an basic introduction to Sobol' indices, head to the `example`_. .. _example:example.rst
+* | For an basic introduction to Sobol' indices, head to the `example`_. .. _example:https://github.com/gbhattacharjee/sobol/blob/main/EXAMPLE.rst
 * | For a more detailed treatment, see *Global Sensitivity Analysis: The Primer* by Andrea Saltelli et al.
 * | For a detailed treatment of Sobol' indices for bridge retrofit (or component upgrade) prioritisation, see the paper
   | associated with this repository (Bhattacharjee and Baker TBD).
