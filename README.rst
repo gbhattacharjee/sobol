@@ -35,12 +35,10 @@ A Sobol' index approximates an exact sensitivity index that results from a globa
 . The magnitude of a (normalized) Sobol' index indicates how much of the variance in an output quantity of interest
 can be attributed to variance in a particular input. The larger the Sobol' index, the more influential the input.
 
-For an basic introduction to Sobol' indices, head to the .. _example:
-
-For a more detailed treatment, see *Global Sensitivity Analysis: The Primer* by Andrea Saltelli et al.
-
-For a detailed treatment of Sobol' indices for bridge retrofit (or component upgrade) prioritisation, see the paper
-associated with this repository (Bhattacharjee and Baker TBD).
+* | For an basic introduction to Sobol' indices, head to the .. _example:example.rst
+* | For a more detailed treatment, see *Global Sensitivity Analysis: The Primer* by Andrea Saltelli et al.
+* | For a detailed treatment of Sobol' indices for bridge retrofit (or component upgrade) prioritisation, see the paper
+  | associated with this repository (Bhattacharjee and Baker TBD).
 
 How can I use **sobol**?
 ========================
@@ -74,16 +72,9 @@ to install them. For example:
 | ``pip install numpy``
 | ``pip install matplotlib``
 | ``pip install plotly``
-
+|
 | To verify installation has worked, please compare the results of the specified function calls to those given in the
  benchmarks document.
-
-Where can I learn more about Sobol' indices or sensitivity analysis?
-====================================================================
-
-There are different types of Sobol' indices and particular conditions under which they can be estimated -- for
-details, see the paper associated with this repository or *Global Sensitivity Analysis: The Primer* by Andrea
-Saltelli et al.
 
 How can I cite this repository?
 ===============================
