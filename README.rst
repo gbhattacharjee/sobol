@@ -15,9 +15,15 @@ similar questions. Specifically, **sobol** comprises:
 
 * | A set of methods for quantifying the importance of individual components in complex networks by computing their
   | first- and total-order Sobol' indices
-* | A sample data set on which to use those methods, comprising set of vector inputs (bridge fragility function
+* | A sample data set on which to use those methods, comprising vector inputs (bridge fragility function
   | parameters) and scalar outputs (the expected cost of road network performance over a set of earthquake rupture
   | scenarios).
+
+Retrofitting bridges based on their total-order Sobol' indices can be more cost efficient than selecting bridges
+according to other criteria (Bhattacharjee and Baker TBD).
+
+.. image:: figs/sf_fullr_exp_total_cost_vs_n_bridges_positive.png
+   :align: center
 
 These methods should be applicable to other networks and performance metrics of interest, provided they meet the
 criteria outlined in the paper associated with this repository (Bhattacharjee and Baker TBD).
