@@ -91,8 +91,8 @@ Zenodo. http://doi.org/10.5281/zenodo.4294322
 
 References
 ==========
-Gitanjali Bhattacharjee and Jack W. Baker. (TBD) *Using global variance-based sensitivity analysis to prioritise
-bridge retrofits in a regional road network subject to seismic hazard*. Manuscript under review.
+Gitanjali Bhattacharjee and Jack W. Baker. (2021) *Using global variance-based sensitivity analysis to prioritise
+bridge retrofits in a regional road network subject to seismic hazard*. Structure and Infrastructure Engineering (in press).
 
 Andrea Saltelli, Stefano Tarantola, Francesca Campolongo, and Marco Ratto. (2004) *Sensitivity Analysis in Practice: A
 Guide to Assessing Scientific Models*. John Wiley & Sons, Ltd.
